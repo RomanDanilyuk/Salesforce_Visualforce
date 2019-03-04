@@ -1,0 +1,102 @@
+<apex:page controller="NewPageController">
+<apex:slds />
+
+<div class="slds--section">
+    <apex:form >
+        <div class="slds-box slds-theme_shade slds-align_absolute-center slds-text-heading_small">
+            New Product
+        </div>
+         <div class="slds-grid slds-p-top_medium slds-p-bottom_medium" >
+           
+            <div class="slds-col slds-size_3-of-6" >
+                <div class="slds-align_absolute-center">
+                    
+                    <div class="slds-form slds-form_horizontal" >
+                     
+                         <div class="slds-form-element">
+                            <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Name</label>                            
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                          
+                            <apex:inputField value="{!newProd.Name}" styleClass="slds-input" required="true"/>                                                                         
+                            </span>
+                            </div>
+                        </div>
+                        
+                    
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Price</label>                            
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                          
+                            <apex:inputField value="{!newProd.Price__c}" styleClass="slds-input">
+                            </apex:inputField>                                                      
+                            </span>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Units</label>                            
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                          
+                            <apex:inputField value="{!newProd.Units__c}" styleClass="slds-input">
+                            </apex:inputField>                                                      
+                            </span>
+                            </div>
+                        </div> 
+                     
+                    </div>
+                    
+                 </div>   
+            </div>
+            
+            <div class="slds-col slds-size_3-of-6" >
+                <div class="slds-align_absolute-center">
+                
+                    <div class="slds-form slds-form_horizontal">
+                    
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Added Date</label>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">
+                            <apex:inputField value="{!newProd.Added__c}" styleClass="slds-input"/>
+                            </span>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <legend class="slds-form-element__legend slds-form-element__label">Release Date</legend>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                           
+                            <apex:inputField value="{!newProd.Release__c}" styleClass="slds-input"/>
+                            </span>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <legend class="slds-form-element__legend slds-form-element__label">Type</legend>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                           
+                            <apex:inputField value="{!newProd.Type__c}" styleClass="slds-input"/>
+                            </span>
+                            </div>
+                        </div>
+                        
+                       
+                    </div>
+                    
+            </div>
+            
+              
+        </div>   
+       
+ </div>    
+          <apex:pageMessages />
+        <div class="slds-box slds-theme_shade slds-align_absolute-center">
+             <apex:commandButton value="Cancel" action="{!actionCancel}" styleClass="slds-button slds-button_neutral" immediate="true" html-formnovalidate="formnovalidate"/>
+             <apex:commandButton value="Save" action="{!Save}" styleClass="slds-button slds-button_brand"/>
+                         
+        </div>
+    </apex:form>
+</div>
+
+
+</apex:page>

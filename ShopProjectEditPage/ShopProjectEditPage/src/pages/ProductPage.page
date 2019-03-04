@@ -1,0 +1,115 @@
+<apex:page controller="ProductPageController" >
+
+    <apex:slds />
+    
+    <script>
+    function CheckValue(){
+        var = document.getElementById("inputId");
+        if(var.length > 0)
+            {!flag = false}
+                   
+    }
+    
+    </script>
+    
+  <div class="slds-section">
+  
+    <apex:form >
+         <apex:pageBlock >
+             
+             <apex:sectionHeader subtitle="Products Page" title="on Visualforce"/>
+                      <p class="slds-float_right slds-p-bottom_small">                                             
+                        <apex:commandLink value="Add" target="_blank" action="{!addRecord}" styleClass="slds-button slds-button_neutral" />
+                     </p>
+                     
+                     <div class="slds-float_right slds-p-bottom_small slds-p-right_large">
+                         <apex:actionRegion >
+                             <apex:inputText value="{!searchValue}" html-placeholder="Search By Name" styleClass="slds-input" onkeyup="CheckValue()" id="inputId">
+                              <!--<apex:param value="false" assignTo="{!flag}"/> -->
+                              <apex:actionSupport event="onchange" action="{!searchByName}" reRender="productTable"/>
+                             </apex:inputText>
+                         </apex:actionRegion>
+                     </div>
+                                                                              
+                      <p class="slds-float_left slds-p-bottom_small">                        
+                        <apex:commandButton value="Delete" action="{!deleteSelectedRecords}" styleClass="slds-button slds-button_neutral"/>
+                     </p> 
+                                               
+           <apex:outputPanel id="productTable">
+            
+            <apex:pageBlockTable value="{!products}" var="product">
+        
+            <apex:column style="text-align:center;">          
+               <apex:inputCheckbox value="{!product.Selected__c}" />
+            </apex:column>
+            
+            <apex:column headerValue="Actions" style="text-align:center;">
+            
+                        <apex:commandLink value="Edit" onclick="window.open('/{!product.id}/e?retURL={!product.id}')"/>
+                         &nbsp;
+                        <apex:commandLink value="Del" action="{!deleteRecord}">
+                            <apex:param value="{!product.Id}" name="productId"/>
+                        </apex:commandLink>
+                                               
+            </apex:column>
+            
+            <apex:column value="{!product.Name}"  style="text-align:center;"> 
+               <apex:facet name="header">             
+                <apex:commandLink action="{!ViewData}" value="Product Name{!IF(sortExpression=='Name',IF(sortDirection=='ASC','▼','▲'),'')}">
+                 <apex:param value="Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                </apex:commandLink> 
+               </apex:facet>                              
+            </apex:column>
+            <apex:column value="{!product.Units__c}" style="text-align:center;">
+                 <apex:facet name="header">             
+                <apex:commandLink action="{!ViewData}" value="Units Available{!IF(sortExpression=='Units__c',IF(sortDirection=='ASC','▼','▲'),'')}">
+                 <apex:param value="Units__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                </apex:commandLink> 
+               </apex:facet>  
+            </apex:column>         
+            <apex:column value="{!product.Price__c}" style="text-align:center;"/>            
+            <apex:column value="{!product.Type__c}" style="text-align:center;"/>
+            <apex:column value="{!product.Added__c}" style="text-align:center;">
+                <apex:facet name="header">             
+                <apex:commandLink action="{!ViewData}" value="Added Date{!IF(sortExpression=='Added__c',IF(sortDirection=='ASC','▼','▲'),'')}">
+                 <apex:param value="Added__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                </apex:commandLink> 
+               </apex:facet>  
+            </apex:column>
+            <apex:column value="{!product.Release__c}" style="text-align:center;">
+                <apex:facet name="header">             
+                <apex:commandLink action="{!ViewData}" value="Release Date{!IF(sortExpression=='Release__c',IF(sortDirection=='ASC','▼','▲'),'')}">
+                 <apex:param value="Release__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                </apex:commandLink> 
+               </apex:facet>  
+            </apex:column>
+            <apex:column value="{!product.Available__c}" style="text-align:center;"/>            
+            
+          
+        
+        </apex:pageBlockTable>
+       
+        
+            
+               <div class="slds-m-top_medium">
+                 <div class="slds-panel__footer">
+                 
+                     <div style="text-align:center">
+                         <apex:commandButton value="<<" action="{!FirstPage}" disabled="{!disablePrevious}" reRender="productTable" styleClass="slds-button"/>
+                         <apex:commandButton value="<" action="{!Previous}" disabled="{!disablePrevious}" reRender="productTable" styleClass="slds-button"/>
+                         <apex:commandButton value=">" action="{!Next}" disabled="{!disableNext}" reRender="productTable" styleClass="slds-button"/>
+                         <apex:commandButton value=">>" action="{!LastPage}" disabled="{!disableNext}" reRender="productTable" styleClass="slds-button"/> 
+                         <apex:outputPanel styleClass="slds-float_left">Page {!PageNumber} of {!TotalPages}</apex:outputPanel> 
+                     </div>
+                     
+                 </div>
+                </div> 
+           </apex:outputPanel>  
+        
+    <apex:pageMessages />
+    </apex:pageBlock>
+    </apex:form>
+    
+    
+    </div>
+</apex:page>
