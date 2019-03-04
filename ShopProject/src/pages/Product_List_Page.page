@@ -1,0 +1,70 @@
+<apex:page controller="ProductListController">
+  <html>
+  
+  <head>
+      <apex:slds />
+  </head>
+  
+  <body>
+  
+      <div class="slds-section">
+       
+        <apex:form >
+      <apex:pageBlock >
+         
+          <p class="slds-text-heading_medium  slds-m-left_medium">Product List</p>
+          
+         
+          <apex:pageBlockTable value="{!products}" var="pdt">
+             
+              <apex:column headerValue="Image" >
+              <p class="slds-align--absolute-center">
+                  <apex:image url="{!pdt.Image_Url__c}" />
+              </p>
+              </apex:column> 
+                         
+              <apex:column headerValue="Product Name" id="Name">
+                  <p class="slds-align--absolute-center">
+                  <apex:OutputLink value="https://c.ap4.visual.force.com/apex/ProductPage">
+                      {!pdt.Name}
+                      <apex:param name="q" value="{!pdt.ID}"/> 
+                  </apex:OutputLink>
+                  </p>
+              </apex:column>            
+              <apex:column headerValue="Description" rendered="true">
+                  <p class="slds-p-horizontal_small">
+                  {!IF(LEN(pdt.Product_Description__c)>=100,LEFT(pdt.Product_Description__c,99),pdt.Product_Description__c)}
+                  <apex:outputLink value="https://c.ap4.visual.force.com/apex/ProductPage" rendered="{!IF(LEN(pdt.Product_Description__c)>=100,true,false)}">
+                      ...More
+                      <apex:param name="q" value="{!pdt.ID}"/>
+                  </apex:outputLink>
+                  </p>
+              </apex:column>
+              <apex:column HeaderValue="Price">
+                 <p class="slds-p-horizontal_small"> ${!pdt.Unit_Price__c}</p>
+              </apex:column>
+              <apex:column >
+                  <p class='slds-p-horizontal_small'>
+                                  <apex:OutputLink value="https://c.ap4.visual.force.com/apex/OrderPage" styleClass="slds-button slds-button_brand">Buy
+                                            <apex:param name="q" value="{!pdt.ID}" assignTo="{!value}"/>
+                                  </apex:OutputLink>
+
+                  </p>
+              </apex:column>
+              
+          </apex:pageBlockTable>
+         
+         
+      </apex:pageBlock>
+       </apex:form>
+         
+      </div>
+  
+  </body>
+  
+  </html>
+  
+  
+  
+  
+</apex:page>

@@ -1,0 +1,139 @@
+<apex:page controller="OrderController" docType="html-5.0" >
+<html >
+
+<head>
+    <apex:slds />
+</head>
+
+<body>
+<apex:form >
+
+<div class="slds-section">   
+
+    <div class="slds-grid slds-box slds-theme_shade"> 
+    
+        <div class="slds-col slds-size_3-of-6 slds-align_absolute-center">            
+            <p class="slds-align_absolute-center slds-text-heading_medium">Contact Information </p>               
+        </div>   
+        
+        <div class="slds-col slds-size_3-of-6 slds-align_absolute-center">            
+            <p class="slds-align_absolute-center slds-text-heading_medium">Product Information </p>               
+        </div> 
+          
+    </div>      
+   
+        <div class="slds-grid slds-p-top_medium slds-p-bottom_medium" >
+           
+            <div class="slds-col slds-size_3-of-6" >
+                <div class="slds-align_absolute-center">
+                    
+                    <div class="slds-form slds-form_horizontal" >
+                     
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Email</label>                            
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">
+                            <apex:actionRegion >
+                            <apex:inputField value="{!cnt.Email}" styleClass="slds-input">
+                                <apex:actionSupport event="onchange" action="{!getDBContact}"  reRender="id_first, id_last" />
+                            </apex:inputField>  
+                            </apex:actionRegion>                         
+                            </span>
+                            </div>
+                        </div>
+                    
+                        <div class="slds-form-element" >
+                            <label class="slds-form-element__label">First Name</label>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                            
+                            <apex:inputField value="{!cnt.FirstName}" styleClass="slds-input" id="id_first"/>
+                            </span>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Last Name</label>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                            
+                            <apex:inputField value="{!cnt.LastName}" styleClass="slds-input" id="id_last"/>
+                            </span>
+                            </div>
+                        </div>
+                     
+                    </div>
+                    
+                 </div>   
+            </div>
+            
+            <div class="slds-col slds-size_3-of-6" >
+                <div class="slds-align_absolute-center">
+                
+                    <div class="slds-form slds-form_horizontal">
+                    
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Product Name</label>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">
+                            <apex:outputField value="{!Product.Name}" styleClass="slds-input"/>
+                            </span>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <legend class="slds-form-element__legend slds-form-element__label">Unit Price</legend>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon">                           
+                            <apex:outputField value="{!Product.Unit_Price__c}" styleClass="slds-input"/>
+                            </span>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Unit Count</label>
+                            <div class="slds-form-element__control">
+                            <span class="slds-form-element__addon"> 
+                            <apex:actionRegion >                         
+                            <apex:input value="{!count}" styleClass="slds-input" >
+                                <apex:actionSupport event="onchange" action="{!validateCount}"
+                                                    reRender="id_total"
+                                                    />
+                            </apex:input>
+                            </apex:actionRegion>
+                            </span>
+                            </div>
+                        </div>
+                        <apex:OutputPanel id="id_total" >
+                        <div class="slds-form-element" >
+                            <label class="slds-form-element__label">Total Amount</label>
+                            <div class="slds-form-element__control" >
+                            <span class="slds-form-element__addon" >                            
+                            <apex:OutputText value="{!count*Product.Unit_Price__c}"  />
+                            </span>
+                            </div>
+                        </div>
+                        <apex:pageMessages />
+                        </apex:OutputPanel>
+                    </div>
+                    
+            </div>
+            
+               
+        </div>   
+ </div>    
+        
+        <div class="slds-box slds-theme_shade slds-align_absolute-center">
+           
+             <apex:commandButton value="Cancel" action="{!actionCancel}" styleClass="slds-button slds-button_neutral" immediate="true" html-formnovalidate="formnovalidate"/>
+             <apex:commandButton value="Checkout" action="{!Checkout}" styleClass="slds-button slds-button_brand"/>
+                
+        </div>
+
+</div>
+</apex:form>
+
+</body>
+
+</html>
+
+</apex:page>
